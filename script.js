@@ -1,82 +1,92 @@
+// Initialize the cart
 let cart = [];
 
-const cartButton = document.getElementById('cart-button');
-const cartModal = document.getElementById('cart-modal');
-const closeCartButton = document.getElementById('close-cart');
-const cartCount = document.getElementById('cart-count');
-const cartItems = document.getElementById('cart-items');
+// Get DOM elements
+const cartButton = document.getElementById('cart-button'); // Cart button
+const cartModal = document.getElementById('cart-modal'); // Cart modal
+const closeCartButton = document.getElementById('close-cart'); // Close button in the cart modal
+const cartCount = document.getElementById('cart-count'); // Cart item count display
+const cartItems = document.getElementById('cart-items'); // Cart items list
 
+// Add functionality to each item box
 document.querySelectorAll('.item-box').forEach(itemBox => {
-  const item = itemBox.dataset.item;
-  const price = parseFloat(itemBox.dataset.price);
-  const quantityControls = itemBox.querySelector('.quantity-controls');
-  const decreaseButton = quantityControls.querySelector('.decrease');
-  const increaseButton = quantityControls.querySelector('.increase');
-  const quantitySpan = quantityControls.querySelector('.quantity');
-  let quantity = 0;
+  const item = itemBox.dataset.item; // Item name
+  const price = parseFloat(itemBox.dataset.price); // Item price
+  const quantityControls = itemBox.querySelector('.quantity-controls'); // Quantity controls
+  const decreaseButton = quantityControls.querySelector('.decrease'); // Decrease button
+  const increaseButton = quantityControls.querySelector('.increase'); // Increase button
+  const quantitySpan = quantityControls.querySelector('.quantity'); // Quantity display
+  let quantity = 0; // Initial quantity is 0
 
-  // Show controls and set quantity to 1 on item click
+  // Show quantity controls when item is clicked and set quantity to 1
   itemBox.addEventListener('click', () => {
     if (quantity === 0) {
-      quantity = 1;
-      updateCart(item, price, quantity);
-      quantitySpan.textContent = quantity;
-      quantityControls.classList.remove('hidden');
+      quantity = 1; // Set quantity to 1
+      updateCart(item, price, quantity); // Update the cart
+      quantitySpan.textContent = quantity; // Update the quantity display
+      quantityControls.classList.remove('hidden'); // Show quantity controls
     }
   });
 
-  // Decrease quantity
+  // Decrease quantity when "-" button is clicked
   decreaseButton.addEventListener('click', (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent item click event
     if (quantity > 0) {
-      quantity--;
-      updateCart(item, price, quantity);
-      quantitySpan.textContent = quantity;
+      quantity--; // Decrease quantity
+      updateCart(item, price, quantity); // Update the cart
+      quantitySpan.textContent = quantity; // Update the quantity display
+
+      // Hide quantity controls if quantity reaches 0
       if (quantity === 0) {
         quantityControls.classList.add('hidden');
       }
     }
   });
 
-  // Increase quantity
+  // Increase quantity when "+" button is clicked
   increaseButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    quantity++;
-    updateCart(item, price, quantity);
-    quantitySpan.textContent = quantity;
+    e.stopPropagation(); // Prevent item click event
+    quantity++; // Increase quantity
+    updateCart(item, price, quantity); // Update the cart
+    quantitySpan.textContent = quantity; // Update the quantity display
   });
 });
 
-// Update cart items
+// Update the cart with selected items
 function updateCart(item, price, quantity) {
   const cartIndex = cart.findIndex(cartItem => cartItem.item === item);
+
   if (quantity > 0) {
     if (cartIndex > -1) {
+      // Update existing item quantity
       cart[cartIndex].quantity = quantity;
     } else {
+      // Add new item to the cart
       cart.push({ item, price, quantity });
     }
   } else if (cartIndex > -1) {
+    // Remove item from the cart if quantity is 0
     cart.splice(cartIndex, 1);
   }
 
-  cartCount.textContent = cart.reduce((acc, cur) => acc + cur.quantity, 0);
+  // Update cart count display
+  cartCount.textContent = cart.reduce((total, currentItem) => total + currentItem.quantity, 0);
 }
 
 // Open the cart modal
 cartButton.addEventListener('click', () => {
-  cartModal.classList.remove('hidden');
-  renderCartItems();
+  cartModal.classList.remove('hidden'); // Show the cart modal
+  renderCartItems(); // Render the cart items
 });
 
 // Close the cart modal
 closeCartButton.addEventListener('click', () => {
-  cartModal.classList.add('hidden');
+  cartModal.classList.add('hidden'); // Hide the cart modal
 });
 
-// Render cart items
+// Render selected items in the cart modal
 function renderCartItems() {
-  cartItems.innerHTML = '';
+  cartItems.innerHTML = ''; // Clear existing items
   cart.forEach(({ item, price, quantity }) => {
     const li = document.createElement('li');
     li.textContent = `${item} 💎 - ${quantity} x ${price} GEL`;
