@@ -15,14 +15,17 @@ document.querySelectorAll('.item-box').forEach(itemBox => {
   const quantitySpan = quantityControls.querySelector('.quantity');
   let quantity = 0;
 
+  // Show controls and set quantity to 1 on item click
   itemBox.addEventListener('click', () => {
     if (quantity === 0) {
       quantity = 1;
       updateCart(item, price, quantity);
+      quantitySpan.textContent = quantity;
       quantityControls.classList.remove('hidden');
     }
   });
 
+  // Decrease quantity
   decreaseButton.addEventListener('click', (e) => {
     e.stopPropagation();
     if (quantity > 0) {
@@ -35,6 +38,7 @@ document.querySelectorAll('.item-box').forEach(itemBox => {
     }
   });
 
+  // Increase quantity
   increaseButton.addEventListener('click', (e) => {
     e.stopPropagation();
     quantity++;
@@ -43,15 +47,7 @@ document.querySelectorAll('.item-box').forEach(itemBox => {
   });
 });
 
-cartButton.addEventListener('click', () => {
-  cartModal.classList.remove('hidden');
-  renderCartItems();
-});
-
-closeCartButton.addEventListener('click', () => {
-  cartModal.classList.add('hidden');
-});
-
+// Update cart items
 function updateCart(item, price, quantity) {
   const cartIndex = cart.findIndex(cartItem => cartItem.item === item);
   if (quantity > 0) {
@@ -67,6 +63,18 @@ function updateCart(item, price, quantity) {
   cartCount.textContent = cart.reduce((acc, cur) => acc + cur.quantity, 0);
 }
 
+// Open the cart modal
+cartButton.addEventListener('click', () => {
+  cartModal.classList.remove('hidden');
+  renderCartItems();
+});
+
+// Close the cart modal
+closeCartButton.addEventListener('click', () => {
+  cartModal.classList.add('hidden');
+});
+
+// Render cart items
 function renderCartItems() {
   cartItems.innerHTML = '';
   cart.forEach(({ item, price, quantity }) => {
