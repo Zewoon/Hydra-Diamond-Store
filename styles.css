@@ -121,8 +121,7 @@ header {
   background-color: #dcdcdc;
 }
 
-#total-price,
-#profit {
+#total-price {
   margin-top: 10px;
   font-size: 1.2rem;
   font-weight: bold;
