@@ -4,12 +4,14 @@ let selectedItems = [];
 // Select all item boxes
 const itemBoxes = document.querySelectorAll('.item-box');
 const selectedItemsList = document.getElementById('selected-items-list');
+const totalPriceElement = document.createElement('li'); // For total price display
+totalPriceElement.style.fontWeight = 'bold'; // Highlight the total price
 
 // Handle item selection/deselection
 itemBoxes.forEach(itemBox => {
   const tick = itemBox.querySelector('.tick');
   const item = itemBox.dataset.item;
-  const price = itemBox.dataset.price;
+  const price = parseFloat(itemBox.dataset.price);
 
   // Handle item click to toggle selection
   itemBox.addEventListener('click', () => {
@@ -17,21 +19,21 @@ itemBoxes.forEach(itemBox => {
       // Item is being selected
       tick.classList.remove('hidden');
       selectedItems.push({ item, price });
-      renderSelectedItems();
+      updateSelectedItems();
     } else {
       // Item is being deselected
       tick.classList.add('hidden');
       selectedItems = selectedItems.filter(selected => selected.item !== item);
-      renderSelectedItems();
+      updateSelectedItems();
     }
   });
 });
 
-// Render selected items in the list
-function renderSelectedItems() {
-  // Clear the current list
+// Update selected items list and total price
+function updateSelectedItems() {
+  // Clear only non-total items from the list
   selectedItemsList.innerHTML = '';
-
+  
   // Render each selected item
   selectedItems.forEach(selected => {
     const listItem = document.createElement('li');
@@ -41,7 +43,7 @@ function renderSelectedItems() {
     listItem.addEventListener('click', () => {
       // Remove the item from selected items
       selectedItems = selectedItems.filter(selectedItem => selectedItem !== selected);
-      renderSelectedItems();
+      updateSelectedItems();
       // Deselect the item in the grid
       const itemBox = document.querySelector(`[data-item="${selected.item}"]`);
       const tick = itemBox.querySelector('.tick');
@@ -50,4 +52,11 @@ function renderSelectedItems() {
 
     selectedItemsList.appendChild(listItem);
   });
+
+  // Calculate total price
+  const totalPrice = selectedItems.reduce((sum, selected) => sum + selected.price, 0);
+  totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} GEL`;
+
+  // Append total price to the list
+  selectedItemsList.appendChild(totalPriceElement);
 }
