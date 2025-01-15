@@ -8,147 +8,7 @@
 </head>
 <body>
   <header>
-    <h1>Welcome to Hydra Diamond Store</h1>
-  </header>
-
-  <!-- Product Listings -->
-<section id="price-list">
-  <h2>Diamond Price List</h2>
-  <table border="1" cellspacing="0" cellpadding="10">
-    <thead>
-      <tr>
-        <th>Item 💎</th>
-        <th>Your Selling Price (GEL)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>86 💎</td>
-        <td>4 GEL</td>
-      </tr>
-      <tr>
-        <td>172 💎</td>
-        <td>7 GEL</td>
-      </tr>
-      <tr>
-        <td>257 💎</td>
-        <td>10 GEL</td>
-      </tr>
-      <tr>
-        <td>343 💎</td>
-        <td>13 GEL</td>
-      </tr>
-      <tr>
-        <td>429 💎</td>
-        <td>16 GEL</td>
-      </tr>
-      <tr>
-        <td>514 💎</td>
-        <td>20 GEL</td>
-      </tr>
-      <tr>
-        <td>600 💎</td>
-        <td>23 GEL</td>
-      </tr>
-      <tr>
-        <td>706 💎</td>
-        <td>26 GEL</td>
-      </tr>
-      <tr>
-        <td>1,049 💎</td>
-        <td>38 GEL</td>
-      </tr>
-      <tr>
-        <td>1,135 💎</td>
-        <td>40 GEL</td>
-      </tr>
-      <tr>
-        <td>1,220 💎</td>
-        <td>44 GEL</td>
-      </tr>
-      <tr>
-        <td>1,412 💎</td>
-        <td>50 GEL</td>
-      </tr>
-      <tr>
-        <td>1,584 💎</td>
-        <td>55 GEL</td>
-      </tr>
-      <tr>
-        <td>1,669 💎</td>
-        <td>59 GEL</td>
-      </tr>
-      <tr>
-        <td>2,195 💎</td>
-        <td>74 GEL</td>
-      </tr>
-      <tr>
-        <td>3,688 💎</td>
-        <td>125 GEL</td>
-      </tr>
-      <tr>
-        <td>5,532 💎</td>
-        <td>185 GEL</td>
-      </tr>
-      <tr>
-        <td>9,288 💎</td>
-        <td>316 GEL</td>
-      </tr>
-      <!-- Additional Passes -->
-      <tr>
-        <td>Weekly Pass</td>
-        <td>4 GEL</td>
-      </tr>
-      <tr>
-        <td>Value Pass</td>
-        <td>2 GEL</td>
-      </tr>
-      <tr>
-        <td>Twilight Pass</td>
-        <td>21 GEL</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-  <!-- Checkout Form -->
-  <section id="checkout" style="display: none;">
-    <h2>Checkout</h2>
-    <form id="orderForm" method="POST" data-netlify="true">
-      <input type="hidden" name="product" id="selectedProduct">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="receipt">Upload Payment Receipt:</label>
-      <input type="file" id="receipt" name="receipt" accept="image/*" required>
-
-      <button type="submit">Submit Order</button>
-    </form>
-  </section>
-
-  <script>
-    function selectProduct(product) {
-      document.getElementById('selectedProduct').value = product;
-      document.getElementById('products').style.display = 'none';
-      document.getElementById('checkout').style.display = 'block';
-    }
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diamond Store</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header>
-    <h1>Diamond Store</h1>
+    <h1> Welcome to Hydra Diamond Store</h1>
     <div id="cart">
       🛒 Cart: <span id="cart-count">0</span> items
     </div>
@@ -167,52 +27,17 @@
       <li onclick="toggleItem(706, 26)">706 💎 - 26 GEL</li>
       <li onclick="toggleItem(1049, 38)">1,049 💎 - 38 GEL</li>
       <li onclick="toggleItem(1135, 40)">1,135 💎 - 40 GEL</li>
-    </ul>
-  </section>
-
-  <section id="cart-items">
-    <h2>Selected Items</h2>
-    <ul id="cart-list">
-      <!-- Items will be added here dynamically -->
-    </ul>
-  </section>
-
-  <script src="script.js"></script>
-</body>
-</html>
-t with a cart:
-
-html
-ကုဒ် ကူးယူရန်
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diamond Store</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header>
-    <h1>Diamond Store</h1>
-    <div id="cart">
-      🛒 Cart: <span id="cart-count">0</span> items
-    </div>
-  </header>
-
-  <section id="price-list">
-    <h2>Select Your Items</h2>
-    <ul>
-      <li onclick="toggleItem(86, 4)">86 💎 - 4 GEL</li>
-      <li onclick="toggleItem(172, 7)">172 💎 - 7 GEL</li>
-      <li onclick="toggleItem(257, 10)">257 💎 - 10 GEL</li>
-      <li onclick="toggleItem(343, 13)">343 💎 - 13 GEL</li>
-      <li onclick="toggleItem(429, 16)">429 💎 - 16 GEL</li>
-      <li onclick="toggleItem(514, 20)">514 💎 - 20 GEL</li>
-      <li onclick="toggleItem(600, 23)">600 💎 - 23 GEL</li>
-      <li onclick="toggleItem(706, 26)">706 💎 - 26 GEL</li>
-      <li onclick="toggleItem(1049, 38)">1,049 💎 - 38 GEL</li>
-      <li onclick="toggleItem(1135, 40)">1,135 💎 - 40 GEL</li>
+      <li onclick="toggleItem(1220, 44)">1,220 💎 - 44 GEL</li>
+      <li onclick="toggleItem(1412, 50)">1,412 💎 - 50 GEL</li>
+      <li onclick="toggleItem(1584, 55)">1,584 💎 - 55 GEL</li>
+      <li onclick="toggleItem(1669, 59)">1,669 💎 - 59 GEL</li>
+      <li onclick="toggleItem(2195, 74)">2,195 💎 - 74 GEL</li>
+      <li onclick="toggleItem(3688, 125)">3,688 💎 - 125 GEL</li>
+      <li onclick="toggleItem(5532, 185)">5,532 💎 - 185 GEL</li>
+      <li onclick="toggleItem(9288, 316)">9,288 💎 - 316 GEL</li>
+      <li onclick="toggleItem('Weekly Pass', 4)">Weekly Pass - 4 GEL</li>
+      <li onclick="toggleItem('Value Pass', 2)">Value Pass - 2 GEL</li>
+      <li onclick="toggleItem('Twilight Pass', 21)">Twilight Pass - 21 GEL</li>
     </ul>
   </section>
 
