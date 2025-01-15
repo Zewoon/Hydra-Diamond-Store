@@ -12,40 +12,49 @@ header {
   color: white;
 }
 
-#price-list ul {
-  list-style-type: none;
-  padding: 0;
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 20px;
 }
 
-#price-list li {
-  margin: 10px 0;
-  padding: 10px;
+.item-box {
   border: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.item-box:hover {
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
 }
 
 .quantity-controls {
+  margin-top: 10px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
 }
 
 .quantity-controls button {
   padding: 5px 10px;
   border: 1px solid #ddd;
+  border-radius: 5px;
   background-color: #f4f4f4;
   cursor: pointer;
 }
 
-.quantity-controls span.quantity {
-  width: 30px;
-  text-align: center;
-}
-
-.hidden {
-  display: none;
+.quantity-controls span {
+  font-weight: bold;
 }
 
 #cart-modal {
@@ -63,7 +72,12 @@ header {
 .cart-content {
   background: white;
   padding: 20px;
+  border-radius: 10px;
   width: 50%;
-  text-align: left;
-  border-radius: 8px;
+  text-align: center;
+}
+
+#cart-items {
+  list-style-type: none;
+  padding: 0;
 }
