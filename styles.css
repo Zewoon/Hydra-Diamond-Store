@@ -4,9 +4,14 @@ body {
 }
 
 header {
-  background-color: #333;
-  color: white;
-  padding: 10px;
+  background-color: #333; /* Dark background */
+  color: white; /* White text */
+  text-align: center; /* Center the text */
+  padding: 20px; /* Add some padding */
+  font-size: 2rem; /* Increase font size */
+  font-family: 'Arial', sans-serif; /* Use a clean font */
+  text-transform: uppercase; /* Make text uppercase */
+  letter-spacing: 2px; /* Add some letter spacing */
 }
 
 .item-grid {
