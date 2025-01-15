@@ -61,9 +61,9 @@ function updateSelectedItems() {
   const totalProfit = totalPrice - totalCost;
 
   // Update the total price and profit displays
-  totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} GEL`;
-  profitElement.textContent = `Profit: ${totalProfit.toFixed(2)} GEL`;
+  totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} GEL`; // In the list
+  profitElement.textContent = `Profit: ${totalProfit.toFixed(2)} GEL`; // In the list
 
   // Update the circular total price indicator
-  totalPriceCircle.textContent = `${totalPrice.toFixed(2)} GEL`;
+  totalPriceCircle.textContent = `${totalPrice.toFixed(2)} GEL`; // In the circle
 }
