@@ -74,18 +74,16 @@ function updateCart(item, price, quantity) {
 }
 
 // Open the cart modal
-cartButton.addEventListener('click', () => {
-  cartModal.classList.remove('hidden'); // Show the cart modal
-  renderCartItems(); // Render the cart items
+document.getElementById('cart-button').addEventListener('click', () => {
+  const cartModal = document.getElementById('cart-modal');
+  cartModal.classList.remove('hidden'); // Remove the 'hidden' class to show the modal
 });
 
 // Close the cart modal
-const closeCartButton = document.getElementById('close-cart');
-closeCartButton.addEventListener('click', () => {
+document.getElementById('close-cart').addEventListener('click', () => {
   const cartModal = document.getElementById('cart-modal');
-  cartModal.classList.add('hidden'); // Apply the 'hidden' class to hide the modal
+  cartModal.classList.add('hidden'); // Add the 'hidden' class to hide the modal
 });
-
 
 // Render selected items in the cart modal
 function renderCartItems() {
