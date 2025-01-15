@@ -4,21 +4,23 @@ let selectedItems = [];
 // Select all item boxes
 const itemBoxes = document.querySelectorAll('.item-box');
 const selectedItemsList = document.getElementById('selected-items-list');
-const totalPriceElement = document.createElement('li'); // For total price display
-totalPriceElement.style.fontWeight = 'bold'; // Highlight the total price
+const totalPriceElement = document.getElementById('total-price'); // For total price in the list
+const profitElement = document.getElementById('profit'); // For profit display
+const totalPriceCircle = document.getElementById('total-price-circle'); // For circular total price display
 
 // Handle item selection/deselection
 itemBoxes.forEach(itemBox => {
   const tick = itemBox.querySelector('.tick');
   const item = itemBox.dataset.item;
-  const price = parseFloat(itemBox.dataset.price);
+  const price = parseFloat(itemBox.dataset.price); // Selling price
+  const cost = parseFloat(itemBox.dataset.cost); // Cost price
 
   // Handle item click to toggle selection
   itemBox.addEventListener('click', () => {
     if (tick.classList.contains('hidden')) {
       // Item is being selected
       tick.classList.remove('hidden');
-      selectedItems.push({ item, price });
+      selectedItems.push({ item, price, cost });
       updateSelectedItems();
     } else {
       // Item is being deselected
@@ -29,7 +31,7 @@ itemBoxes.forEach(itemBox => {
   });
 });
 
-// Update selected items list and total price
+// Update selected items list, total price, profit, and circle display
 function updateSelectedItems() {
   // Clear the selected items list
   selectedItemsList.innerHTML = '';
@@ -53,10 +55,15 @@ function updateSelectedItems() {
     selectedItemsList.appendChild(listItem);
   });
 
-  // Calculate total price
+  // Calculate total price and profit
   const totalPrice = selectedItems.reduce((sum, selected) => sum + selected.price, 0);
-  totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} GEL`;
+  const totalCost = selectedItems.reduce((sum, selected) => sum + selected.cost, 0);
+  const totalProfit = totalPrice - totalCost;
 
-  // Append total price to the list
-  selectedItemsList.appendChild(totalPriceElement);
+  // Update the total price and profit displays
+  totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} GEL`;
+  profitElement.textContent = `Profit: ${totalProfit.toFixed(2)} GEL`;
+
+  // Update the circular total price indicator
+  totalPriceCircle.textContent = `${totalPrice.toFixed(2)} GEL`;
 }
