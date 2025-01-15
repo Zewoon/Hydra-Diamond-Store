@@ -80,9 +80,12 @@ cartButton.addEventListener('click', () => {
 });
 
 // Close the cart modal
+const closeCartButton = document.getElementById('close-cart');
 closeCartButton.addEventListener('click', () => {
-  cartModal.classList.add('hidden'); // Hide the cart modal
+  const cartModal = document.getElementById('cart-modal');
+  cartModal.classList.add('hidden'); // Apply the 'hidden' class to hide the modal
 });
+
 
 // Render selected items in the cart modal
 function renderCartItems() {
