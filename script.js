@@ -31,9 +31,9 @@ itemBoxes.forEach(itemBox => {
 
 // Update selected items list and total price
 function updateSelectedItems() {
-  // Clear only non-total items from the list
+  // Clear the selected items list
   selectedItemsList.innerHTML = '';
-  
+
   // Render each selected item
   selectedItems.forEach(selected => {
     const listItem = document.createElement('li');
