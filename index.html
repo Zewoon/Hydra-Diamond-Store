@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diamond Store</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to Diamond Store</h1>
+  </header>
+
+  <!-- Product Listings -->
+  <section id="products">
+    <div class="product">
+      <h2>86 Diamonds 💎</h2>
+      <p>Price: 4 ₾</p>
+      <button onclick="selectProduct('86 Diamonds')">Buy Now</button>
+    </div>
+    <div class="product">
+      <h2>172 Diamonds 💎</h2>
+      <p>Price: 8 ₾</p>
+      <button onclick="selectProduct('172 Diamonds')">Buy Now</button>
+    </div>
+  </section>
+
+  <!-- Checkout Form -->
+  <section id="checkout" style="display: none;">
+    <h2>Checkout</h2>
+    <form id="orderForm" method="POST" data-netlify="true">
+      <input type="hidden" name="product" id="selectedProduct">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="receipt">Upload Payment Receipt:</label>
+      <input type="file" id="receipt" name="receipt" accept="image/*" required>
+
+      <button type="submit">Submit Order</button>
+    </form>
+  </section>
+
+  <script>
+    function selectProduct(product) {
+      document.getElementById('selectedProduct').value = product;
+      document.getElementById('products').style.display = 'none';
+      document.getElementById('checkout').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
