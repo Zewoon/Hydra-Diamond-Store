@@ -9,189 +9,31 @@
 <body>
   <header>
     <h1>Diamond Store</h1>
-    <div id="cart-container">
-      🛒 <button id="cart-button">Cart (<span id="cart-count">0</span>)</button>
-    </div>
   </header>
 
   <section id="price-list">
     <h2>Select Your Items</h2>
     <div class="item-grid">
-      <!-- List of all items -->
       <div class="item-box" data-item="86" data-price="4">
         <h3>86 💎</h3>
         <p>4 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
+        <div class="tick hidden">✔</div>
       </div>
       <div class="item-box" data-item="172" data-price="7">
         <h3>172 💎</h3>
         <p>7 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
+        <div class="tick hidden">✔</div>
       </div>
-      <div class="item-box" data-item="257" data-price="10">
-        <h3>257 💎</h3>
-        <p>10 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="343" data-price="13">
-        <h3>343 💎</h3>
-        <p>13 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="429" data-price="16">
-        <h3>429 💎</h3>
-        <p>16 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="514" data-price="20">
-        <h3>514 💎</h3>
-        <p>20 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="600" data-price="23">
-        <h3>600 💎</h3>
-        <p>23 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="706" data-price="26">
-        <h3>706 💎</h3>
-        <p>26 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="1049" data-price="38">
-        <h3>1049 💎</h3>
-        <p>38 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="1135" data-price="40">
-        <h3>1135 💎</h3>
-        <p>40 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="1220" data-price="44">
-        <h3>1220 💎</h3>
-        <p>44 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="1412" data-price="50">
-        <h3>1412 💎</h3>
-        <p>50 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="1584" data-price="55">
-        <h3>1584 💎</h3>
-        <p>55 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="1669" data-price="59">
-        <h3>1669 💎</h3>
-        <p>59 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="2195" data-price="74">
-        <h3>2195 💎</h3>
-        <p>74 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="3688" data-price="125">
-        <h3>3688 💎</h3>
-        <p>125 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="5532" data-price="185">
-        <h3>5532 💎</h3>
-        <p>185 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
-      <div class="item-box" data-item="9288" data-price="316">
-        <h3>9288 💎</h3>
-        <p>316 GEL</p>
-        <div class="quantity-controls hidden">
-          <button class="decrease">-</button>
-          <span class="quantity">0</span>
-          <button class="increase">+</button>
-        </div>
-      </div>
+      <!-- Add more items here in the same format -->
     </div>
   </section>
 
-  <div id="cart-modal" class="hidden">
-    <div class="cart-content">
-      <h2>Your Cart</h2>
-      <ul id="cart-items">
-        <!-- Selected items will appear here -->
-      </ul>
-      <button id="close-cart">Close</button>
-    </div>
-  </div>
+  <section id="selected-items">
+    <h2>Selected Items</h2>
+    <ul id="selected-items-list">
+      <!-- Selected items will appear here -->
+    </ul>
+  </section>
 
   <script src="script.js"></script>
 </body>
