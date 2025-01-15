@@ -68,3 +68,20 @@ header {
 #selected-items li:hover {
   background-color: #dcdcdc;
 }
+#total-price-circle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #28a745; /* Green background */
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  text-align: center;
+}
