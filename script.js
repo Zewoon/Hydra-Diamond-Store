@@ -74,15 +74,18 @@ function updateCart(item, price, quantity) {
 }
 
 // Open the cart modal
-document.getElementById('cart-button').addEventListener('click', () => {
-  const cartModal = document.getElementById('cart-modal');
-  cartModal.classList.remove('hidden'); // Remove the 'hidden' class to show the modal
+const cartButton = document.getElementById('cart-button');
+const cartModal = document.getElementById('cart-modal');
+const closeCartButton = document.getElementById('close-cart');
+
+// Open cart modal when Cart button is clicked
+cartButton.addEventListener('click', () => {
+  cartModal.classList.remove('hidden'); // Remove 'hidden' class to show modal
 });
 
-// Close the cart modal
-document.getElementById('close-cart').addEventListener('click', () => {
-  const cartModal = document.getElementById('cart-modal');
-  cartModal.classList.add('hidden'); // Add the 'hidden' class to hide the modal
+// Close cart modal when Close button is clicked
+closeCartButton.addEventListener('click', () => {
+  cartModal.classList.add('hidden'); // Add 'hidden' class to hide modal
 });
 
 // Render selected items in the cart modal
