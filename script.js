@@ -6,32 +6,52 @@ const closeCartButton = document.getElementById('close-cart');
 const cartCount = document.getElementById('cart-count');
 const cartItems = document.getElementById('cart-items');
 
-// Add event listeners to quantity controls
-document.querySelectorAll('.quantity-controls').forEach(control => {
-  const decreaseButton = control.querySelector('.decrease');
-  const increaseButton = control.querySelector('.increase');
-  const quantitySpan = control.querySelector('.quantity');
-  const item = control.dataset.item;
-  const price = parseFloat(control.dataset.price);
-
+document.querySelectorAll('.item-box').forEach(itemBox => {
+  const item = itemBox.dataset.item;
+  const price = parseFloat(itemBox.dataset.price);
+  const quantityControls = itemBox.querySelector('.quantity-controls');
+  const decreaseButton = quantityControls.querySelector('.decrease');
+  const increaseButton = quantityControls.querySelector('.increase');
+  const quantitySpan = quantityControls.querySelector('.quantity');
   let quantity = 0;
 
-  decreaseButton.addEventListener('click', () => {
+  itemBox.addEventListener('click', () => {
+    if (quantity === 0) {
+      quantity = 1;
+      updateCart(item, price, quantity);
+      quantityControls.classList.remove('hidden');
+    }
+  });
+
+  decreaseButton.addEventListener('click', (e) => {
+    e.stopPropagation();
     if (quantity > 0) {
       quantity--;
       updateCart(item, price, quantity);
       quantitySpan.textContent = quantity;
+      if (quantity === 0) {
+        quantityControls.classList.add('hidden');
+      }
     }
   });
 
-  increaseButton.addEventListener('click', () => {
+  increaseButton.addEventListener('click', (e) => {
+    e.stopPropagation();
     quantity++;
     updateCart(item, price, quantity);
     quantitySpan.textContent = quantity;
   });
 });
 
-// Update cart items
+cartButton.addEventListener('click', () => {
+  cartModal.classList.remove('hidden');
+  renderCartItems();
+});
+
+closeCartButton.addEventListener('click', () => {
+  cartModal.classList.add('hidden');
+});
+
 function updateCart(item, price, quantity) {
   const cartIndex = cart.findIndex(cartItem => cartItem.item === item);
   if (quantity > 0) {
@@ -44,21 +64,9 @@ function updateCart(item, price, quantity) {
     cart.splice(cartIndex, 1);
   }
 
-  cartCount.textContent = cart.length;
+  cartCount.textContent = cart.reduce((acc, cur) => acc + cur.quantity, 0);
 }
 
-// Open the cart modal
-cartButton.addEventListener('click', () => {
-  cartModal.classList.remove('hidden');
-  renderCartItems();
-});
-
-// Close the cart modal
-closeCartButton.addEventListener('click', () => {
-  cartModal.classList.add('hidden');
-});
-
-// Render cart items
 function renderCartItems() {
   cartItems.innerHTML = '';
   cart.forEach(({ item, price, quantity }) => {
