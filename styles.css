@@ -67,7 +67,20 @@ header {
 
 #selected-items li:hover {
   background-color: #dcdcdc;
+}/* Header styles */
+header {
+  position: relative;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 2rem;
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
+
+/* Circular total price indicator */
 #total-price-circle {
   position: absolute;
   top: 20px;
@@ -77,7 +90,7 @@ header {
   border-radius: 50%;
   background-color: #28a745; /* Green background */
   color: white;
-  font-size: 1.2rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,3 +98,33 @@ header {
   font-weight: bold;
   text-align: center;
 }
+
+/* Selected items section */
+#selected-items {
+  margin-top: 20px;
+}
+
+#selected-items ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#selected-items li {
+  background-color: #f4f4f4;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#selected-items li:hover {
+  background-color: #dcdcdc;
+}
+
+#total-price,
+#profit {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
