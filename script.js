@@ -21,9 +21,6 @@ document.querySelectorAll('.quantity-controls').forEach(control => {
       quantity--;
       updateCart(item, price, quantity);
       quantitySpan.textContent = quantity;
-      if (quantity === 0) {
-        control.classList.add('hidden');
-      }
     }
   });
 
@@ -31,7 +28,6 @@ document.querySelectorAll('.quantity-controls').forEach(control => {
     quantity++;
     updateCart(item, price, quantity);
     quantitySpan.textContent = quantity;
-    control.classList.remove('hidden');
   });
 });
 
@@ -51,12 +47,13 @@ function updateCart(item, price, quantity) {
   cartCount.textContent = cart.length;
 }
 
-// Open and close cart modal
+// Open the cart modal
 cartButton.addEventListener('click', () => {
   cartModal.classList.remove('hidden');
   renderCartItems();
 });
 
+// Close the cart modal
 closeCartButton.addEventListener('click', () => {
   cartModal.classList.add('hidden');
 });
