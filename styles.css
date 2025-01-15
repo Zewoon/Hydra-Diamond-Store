@@ -17,6 +17,7 @@ header {
 }
 
 .item-box {
+  position: relative; /* Add relative positioning to the item box */
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 15px;
@@ -31,7 +32,7 @@ header {
 }
 
 .tick {
-  position: absolute;
+  position: absolute; /* Position the tick absolutely */
   top: 10px;
   right: 10px;
   font-size: 20px;
