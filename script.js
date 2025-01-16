@@ -63,7 +63,7 @@ function updateSelectedItems() {
 
 // Pay button functionality
 payButton.addEventListener('click', () => {
-  const totalPrice = selectedItems.reduce((sum, selected) => sum + selected.price, 0);
-  alert(`Your total price is ${Math.round(totalPrice)} GEL. Proceeding to payment...`);
-  // You can later replace the alert with real payment logic (e.g., payment gateway integration)
+  // Redirect to payment.html
+  window.location.href = './payment.html';
 });
+
