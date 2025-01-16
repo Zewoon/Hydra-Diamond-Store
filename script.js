@@ -5,7 +5,6 @@ let selectedItems = [];
 const itemBoxes = document.querySelectorAll('.item-box');
 const selectedItemsList = document.getElementById('selected-items-list');
 const totalPriceElement = document.getElementById('total-price'); // For total price in the list
-const profitElement = document.getElementById('profit'); // For profit display
 const totalPriceCircle = document.getElementById('total-price-circle'); // For circular total price display
 
 // Handle item selection/deselection
@@ -13,14 +12,13 @@ itemBoxes.forEach(itemBox => {
   const tick = itemBox.querySelector('.tick');
   const item = itemBox.dataset.item;
   const price = parseFloat(itemBox.dataset.price); // Selling price
-  const cost = parseFloat(itemBox.dataset.cost); // Cost price
 
   // Handle item click to toggle selection
   itemBox.addEventListener('click', () => {
     if (tick.classList.contains('hidden')) {
       // Item is being selected
       tick.classList.remove('hidden');
-      selectedItems.push({ item, price, cost });
+      selectedItems.push({ item, price });
       updateSelectedItems();
     } else {
       // Item is being deselected
@@ -31,7 +29,7 @@ itemBoxes.forEach(itemBox => {
   });
 });
 
-// Update selected items list, total price, profit, and circle display
+// Update selected items list and total price
 function updateSelectedItems() {
   // Clear the selected items list
   selectedItemsList.innerHTML = '';
@@ -55,13 +53,10 @@ function updateSelectedItems() {
     selectedItemsList.appendChild(listItem);
   });
 
-  // Calculate total price and profit
+  // Calculate total price
   const totalPrice = selectedItems.reduce((sum, selected) => sum + selected.price, 0);
-  const totalCost = selectedItems.reduce((sum, selected) => sum + selected.cost, 0);
 
-  // Update the total price displays
-  totalPriceElement.textContent = `Total Price: ${totalPrice.toFixed(2)} GEL`; // In the list
-
-  // Update the circular total price indicator
-  totalPriceCircle.textContent = `${totalPrice.toFixed(2)} GEL`; // In the circle
+  // Update the total price displays without decimals
+  totalPriceElement.textContent = `Total Price: ${Math.round(totalPrice)} GEL`; // In the list
+  totalPriceCircle.textContent = `${Math.round(totalPrice)}`; // In the circle
 }
