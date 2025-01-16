@@ -126,64 +126,69 @@
     <div id="error-message" class="error-message" style="display: none;">Failed to submit payment. Please try again.</div>
   </div>
 
+  <!-- Supabase Integration -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script>
     // Initialize Supabase
-    const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL"; // Replace with your Supabase project URL
-    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // Replace with your Supabase ANON key
+    const SUPABASE_URL = "https://mfrepldqfnyzouuugyql.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1mcmVwbGRxZm55em91dXVneXFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzcwNTE0ODAsImV4cCI6MjA1MjYyNzQ4MH0.meD7QpSgONRK_4WlNH6LPMtwxQPs0ttW9pOhqfleYdA";
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Function to handle file preview
     function previewImage(event) {
-      const previewImg = document.getElementById('preview-img');
-      const file = event.target.files[0];
-      if (file) {
-        previewImg.style.display = 'block';
-        previewImg.src = URL.createObjectURL(file);
-      }
+        const previewImg = document.getElementById('preview-img');
+        const file = event.target.files[0];
+        if (file) {
+            previewImg.style.display = 'block';
+            previewImg.src = URL.createObjectURL(file);
+        }
     }
 
     // Function to handle form submission
     async function submitPayment() {
-      const buyerID = document.getElementById('buyer-id').value;
-      const screenshot = document.getElementById('screenshot').files[0];
-      const successMessage = document.getElementById('success-message');
-      const errorMessage = document.getElementById('error-message');
+        const buyerID = document.getElementById('buyer-id').value;
+        const screenshot = document.getElementById('screenshot').files[0];
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
 
-      // Reset messages
-      successMessage.style.display = 'none';
-      errorMessage.style.display = 'none';
+        // Reset messages
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
 
-      if (!buyerID || !screenshot) {
-        alert("Please complete all fields!");
-        return;
-      }
+        // Validate inputs
+        if (!buyerID || !screenshot) {
+            alert("Please complete all fields!");
+            return;
+        }
 
-      try {
-        // Upload screenshot to Supabase Storage
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from("screenshots") // Replace with your Supabase storage bucket name
-          .upload(`screenshots/${buyerID}_${Date.now()}`, screenshot);
+        try {
+            // Upload screenshot to Supabase Storage
+            const { data: uploadData, error: uploadError } = await supabase.storage
+                .from("screenshots") // Replace with your Supabase storage bucket name
+                .upload(`screenshots/${buyerID}_${Date.now()}`, screenshot);
 
-        if (uploadError) throw uploadError;
+            if (uploadError) throw uploadError;
 
-        // Save data to Supabase Database
-        const screenshotURL = `${SUPABASE_URL}/storage/v1/object/public/${uploadData.Key}`;
-        const { error: dbError } = await supabase.from("payments").insert([
-          {
-            buyer_id: parseInt(buyerID), // Ensure numeric ID
-            screenshot_url: screenshotURL,
-            status: "Pending",
-          },
-        ]);
+            // Get the public URL of the uploaded screenshot
+            const screenshotURL = `${SUPABASE_URL}/storage/v1/object/public/${uploadData.Key}`;
 
-        if (dbError) throw dbError;
+            // Save data to Supabase Database
+            const { error: dbError } = await supabase.from("payments").insert([
+                {
+                    buyer_id: buyerID, // Save numeric ID as a numeric value
+                    screenshot_url: screenshotURL,
+                    status: "Pending", // Default status for verification
+                },
+            ]);
 
-        successMessage.style.display = 'block';
-      } catch (error) {
-        console.error("Error submitting payment:", error);
-        errorMessage.style.display = 'block';
-      }
+            if (dbError) throw dbError;
+
+            // Show success message
+            successMessage.style.display = 'block';
+        } catch (error) {
+            console.error("Error submitting payment:", error);
+            errorMessage.style.display = 'block';
+        }
     }
   </script>
 </body>
