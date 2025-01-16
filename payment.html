@@ -115,7 +115,7 @@
     <!-- Upload Screenshot -->
     <label for="screenshot">Payment Screenshot</label>
     <div class="file-upload" id="upload-box">
-      <label for="screenshot">Click to upload a photo or drag & drop</label>
+      <label for="screenshot">Click to upload a photo</label>
       <input type="file" id="screenshot" accept="image/*" onchange="previewImage(event)" required>
       <img id="preview-img" alt="Preview">
     </div>
@@ -155,7 +155,6 @@
         successMessage.style.display = 'none';
         errorMessage.style.display = 'none';
 
-        // Validate inputs
         if (!buyerID || !screenshot) {
             alert("Please complete all fields!");
             return;
@@ -175,7 +174,7 @@
             // Save data to Supabase Database
             const { error: dbError } = await supabase.from("payments").insert([
                 {
-                    buyer_id: buyerID, // Save numeric ID as a numeric value
+                    buyer_id: buyerID, // Save numeric ID
                     screenshot_url: screenshotURL,
                     status: "Pending", // Default status for verification
                 },
