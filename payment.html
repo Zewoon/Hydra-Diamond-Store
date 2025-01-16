@@ -57,9 +57,33 @@
       background-color: #0056b3;
     }
 
+    .payment-method {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f1f1f1;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+
+    .copy-btn {
+      background-color: #0077be;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      background-color: #0056b3;
+    }
+
     .file-upload {
       border: 2px dashed #0077be;
-      padding: 30px;
+      padding: 10px;
       text-align: center;
       border-radius: 5px;
       background: #f1f8ff;
@@ -84,9 +108,9 @@
 
     .file-upload img {
       max-width: 100%;
-      max-height: 200px;
       margin-top: 10px;
       display: none;
+      border-radius: 5px;
     }
 
     .success-message {
@@ -104,6 +128,17 @@
     <!-- ID Input -->
     <label for="buyer-id">Your ID</label>
     <input type="text" id="buyer-id" placeholder="Enter your ID" required>
+
+    <!-- Payment Methods -->
+    <label>Payment Method</label>
+    <div class="payment-method">
+      <span>Bank of Georgia</span>
+      <button class="copy-btn" onclick="copyToClipboard('BOG123456789')">Copy</button>
+    </div>
+    <div class="payment-method">
+      <span>TBC Bank</span>
+      <button class="copy-btn" onclick="copyToClipboard('TBC987654321')">Copy</button>
+    </div>
 
     <!-- Upload Screenshot -->
     <label for="screenshot">Payment Screenshot</label>
@@ -179,6 +214,15 @@
         console.error('Error submitting payment:', error);
         alert('Failed to submit payment. Please try again.');
       }
+    }
+
+    // Copy account details to clipboard
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied: " + text);
+      }).catch((err) => {
+        console.error("Error copying text: ", err);
+      });
     }
   </script>
 </body>
