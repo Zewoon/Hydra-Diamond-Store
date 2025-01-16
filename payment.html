@@ -35,7 +35,7 @@
       font-weight: bold;
     }
 
-    input, select, button {
+    input, button {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
@@ -57,46 +57,43 @@
       background-color: #0056b3;
     }
 
-    .payment-method {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #f1f1f1;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      padding: 10px;
-      margin-bottom: 15px;
-    }
-
-    .copy-btn {
-      background-color: #0077be;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .copy-btn:hover {
-      background-color: #0056b3;
-    }
-
     .file-upload {
       border: 2px dashed #0077be;
-      padding: 20px;
+      padding: 30px;
       text-align: center;
       border-radius: 5px;
       background: #f1f8ff;
+      margin-bottom: 20px;
+      position: relative;
     }
 
     .file-upload input {
-      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
     }
 
     .file-upload label {
-      cursor: pointer;
       color: #0077be;
       font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .file-upload img {
+      max-width: 100%;
+      max-height: 200px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .success-message {
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -108,26 +105,17 @@
     <label for="buyer-id">Your ID</label>
     <input type="text" id="buyer-id" placeholder="Enter your ID" required>
 
-    <!-- Payment Methods -->
-    <label>Payment Method</label>
-    <div class="payment-method">
-      <span>Bank of Georgia</span>
-      <button class="copy-btn" onclick="copyToClipboard('BOG12345')">Copy</button>
-    </div>
-    <div class="payment-method">
-      <span>TBC Bank</span>
-      <button class="copy-btn" onclick="copyToClipboard('TBC67890')">Copy</button>
-    </div>
-
     <!-- Upload Screenshot -->
     <label for="screenshot">Payment Screenshot</label>
-    <div class="file-upload">
-      <label for="screenshot">Drag & Drop files here or click to browse</label>
-      <input type="file" id="screenshot" accept="image/*" required>
+    <div class="file-upload" id="upload-box">
+      <label for="screenshot">Click to upload a photo or drag & drop</label>
+      <input type="file" id="screenshot" accept="image/*" onchange="previewImage(event)" required>
+      <img id="preview-img" alt="Preview">
     </div>
 
     <!-- Submit Button -->
     <button onclick="submitPayment()">Buy</button>
+    <div id="success-message" class="success-message" style="display: none;">Payment Submitted Successfully!</div>
   </div>
 
   <!-- Firebase Integration -->
@@ -151,6 +139,16 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     const storage = firebase.storage();
+
+    // Function to handle file preview
+    function previewImage(event) {
+      const previewImg = document.getElementById('preview-img');
+      const file = event.target.files[0];
+      if (file) {
+        previewImg.style.display = 'block';
+        previewImg.src = URL.createObjectURL(file);
+      }
+    }
 
     // Function to handle form submission
     async function submitPayment() {
@@ -176,20 +174,11 @@
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
 
-        alert('Payment submitted successfully!');
+        document.getElementById('success-message').style.display = 'block';
       } catch (error) {
         console.error('Error submitting payment:', error);
         alert('Failed to submit payment. Please try again.');
       }
-    }
-
-    // Copy account details to clipboard
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Copied: " + text);
-      }).catch((err) => {
-        console.error("Error copying text: ", err);
-      });
     }
   </script>
 </body>
