@@ -146,8 +146,9 @@
 
     // Function to handle form submission
     async function submitPayment() {
-        const buyerID = document.getElementById('buyer-id').value;
-        const screenshot = document.getElementById('screenshot').files[0];
+        const buyerID = document.getElementById('buyer-id').value.trim();
+        const screenshotInput = document.getElementById('screenshot');
+        const screenshot = screenshotInput.files[0];
         const successMessage = document.getElementById('success-message');
         const errorMessage = document.getElementById('error-message');
 
@@ -155,15 +156,21 @@
         successMessage.style.display = 'none';
         errorMessage.style.display = 'none';
 
-        if (!buyerID || !screenshot) {
-            alert("Please complete all fields!");
+        // Validation
+        if (!buyerID) {
+            alert("Please enter your numeric ID!");
+            return;
+        }
+
+        if (!screenshot) {
+            alert("Please upload a payment screenshot!");
             return;
         }
 
         try {
             // Upload screenshot to Supabase Storage
             const { data: uploadData, error: uploadError } = await supabase.storage
-                .from("screenshots") // Replace with your Supabase storage bucket name
+                .from("screenshots")
                 .upload(`screenshots/${buyerID}_${Date.now()}`, screenshot);
 
             if (uploadError) throw uploadError;
@@ -174,9 +181,9 @@
             // Save data to Supabase Database
             const { error: dbError } = await supabase.from("payments").insert([
                 {
-                    buyer_id: buyerID, // Save numeric ID
+                    buyer_id: buyerID,
                     screenshot_url: screenshotURL,
-                    status: "Pending", // Default status for verification
+                    status: "Pending",
                 },
             ]);
 
