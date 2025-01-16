@@ -122,3 +122,19 @@ header {
   font-weight: bold;
 }
 
+#pay-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #28a745; /* Green background for the button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#pay-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
