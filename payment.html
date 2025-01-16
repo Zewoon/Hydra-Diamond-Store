@@ -3,22 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hydra Diamond Store</title>
+  <title>Payment Page</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0056b3;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #0077be;
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .payment-method {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f1f1f1;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+
+    .payment-method img {
+      height: 40px;
+    }
+
+    .copy-btn {
+      background-color: #0077be;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .file-upload {
+      border: 2px dashed #0077be;
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+      background: #f1f8ff;
+    }
+
+    .file-upload input {
+      display: none;
+    }
+
+    .file-upload label {
+      cursor: pointer;
+      color: #0077be;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hydra Diamond Store</h1>
-  <form id="buyer-form">
-    <label for="buyer-id">Your ID:</label>
-    <input type="text" id="buyer-id" name="buyerID" required>
+  <div class="container">
+    <h1>Payment Page</h1>
 
-    <label for="payment-method">Payment Method:</label>
-    <select id="payment-method" name="paymentMethod" required>
-      <option value="Bank of Georgia">Bank of Georgia</option>
-      <option value="TBC Bank">TBC Bank</option>
-    </select>
+    <!-- ID Input -->
+    <label for="buyer-id">Your ID</label>
+    <input type="text" id="buyer-id" placeholder="Enter your ID" required>
 
-    <label for="screenshot">Upload Payment Screenshot:</label>
-    <input type="file" id="screenshot" name="screenshot" accept="image/*" required>
+    <!-- Payment Methods -->
+    <label>Payment Method</label>
+    <div class="payment-method">
+      <span>Bank of Georgia</span>
+      <button class="copy-btn" onclick="copyToClipboard('BOG-Account-12345')">Copy</button>
+    </div>
+    <div class="payment-method">
+      <span>TBC Bank</span>
+      <button class="copy-btn" onclick="copyToClipboard('TBC-Account-67890')">Copy</button>
+    </div>
+
+    <!-- Upload Screenshot -->
+    <label for="screenshot">Payment Screenshot</label>
+    <div class="file-upload">
+      <label for="screenshot">Drag & Drop files here or click to browse</label>
+      <input type="file" id="screenshot" accept="image/*" required>
+    </div>
+
+    <!-- Submit Button -->
+    <button onclick="submitPayment()">Buy</button>
+  </div>
+
+  <script>
+    // Copy account details to clipboard
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied: " + text);
+      }).catch((err) => {
+        console.error("Error copying text: ", err);
+      });
+    }
+
+    // Submit payment
+    function submitPayment() {
+      const buyerID = document.getElementById('buyer-id').value;
+      const screenshot = document.getElementById('screenshot').files[0];
+
+      if (!buyerID || !screenshot) {
+        alert("Please complete all fields!");
+        return;
+      }
 
     <button type="button" onclick="submitOrder()">Submit</button>
   </form>
@@ -81,4 +215,4 @@
   </script>
 </body>
 </html>
-<link rel="stylesheet" href="styles.css">
+
