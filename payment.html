@@ -3,205 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payment Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    /* Global Styles */
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9; /* Light background */
-      color: #2b2d42; /* Darker text */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-    }
-
-    .container {
-      width: 95%;
-      max-width: 400px; /* Limit the container width on larger screens */
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      margin: 10px;
-    }
-
-    .section-title {
-      font-size: 1rem;
-      font-weight: bold;
-      color: #005fa3;
-      margin-bottom: 10px;
-    }
-
-    .input-box {
-      margin-bottom: 20px;
-    }
-
-    .input-box input {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      outline: none;
-    }
-
-    .payment-method {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #d6e4ff; /* Light blue for BOG */
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      color: #005fa3;
-      font-weight: bold;
-      flex-wrap: wrap; /* Allow wrapping on small screens */
-    }
-
-    .payment-method.tbc {
-      background-color: #e8f8ea; /* Light green for TBC */
-      color: #2a6f37;
-    }
-
-    .payment-method img {
-      width: 35px;
-      height: 35px;
-      margin-right: 10px;
-    }
-
-    .payment-method span {
-      flex: 1;
-      font-size: 0.9rem;
-    }
-
-    .payment-method button {
-      background-color: #333;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      transition: background-color 0.3s;
-      flex-shrink: 0; /* Prevent the button from shrinking */
-    }
-
-    .payment-method button:hover {
-      background-color: #555;
-    }
-
-    .upload-section {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .upload-section label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 0.9rem;
-      color: #333;
-    }
-
-    .upload-box {
-      border: 2px dashed #ddd;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      color: #aaa;
-      cursor: pointer;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .buy-button {
-      display: block;
-      width: 100%;
-      margin-top: 20px;
-      background-color: #0077be;
-      color: white;
-      font-size: 1rem;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      text-align: center;
-      transition: background-color 0.3s;
-    }
-
-    .buy-button:hover {
-      background-color: #005fa3;
-    }
-
-    /* Media Queries for Small Screens */
-    @media (max-width: 600px) {
-      .payment-method span {
-        font-size: 0.85rem;
-      }
-
-      .payment-method button {
-        padding: 6px 12px;
-        font-size: 0.75rem;
-      }
-
-      .input-box input {
-        padding: 10px;
-        font-size: 0.9rem;
-      }
-
-      .buy-button {
-        font-size: 0.9rem;
-        padding: 10px;
-      }
-    }
-  </style>
+  <title>Hydra Diamond Store</title>
 </head>
 <body>
-  <div class="container">
-    <!-- ID Section -->
-    <div class="input-box">
-      <label for="game-id" class="section-title">ID</label>
-      <input type="text" id="game-id" placeholder="Enter your ID">
-    </div>
+  <h1>Hydra Diamond Store</h1>
+  <form id="buyer-form">
+    <label for="buyer-id">Your ID:</label>
+    <input type="text" id="buyer-id" name="buyerID" required>
 
-    <!-- Payment Methods -->
-    <div class="section-title">Payment Method</div>
+    <label for="payment-method">Payment Method:</label>
+    <select id="payment-method" name="paymentMethod" required>
+      <option value="Bank of Georgia">Bank of Georgia</option>
+      <option value="TBC Bank">TBC Bank</option>
+    </select>
 
-    <div class="payment-method">
-      <img src="bog-logo.png" alt="Bank of Georgia">
-      <span>IBAN: GE29BOG1234567890123456</span>
-      <button onclick="copyText('GE29BOG1234567890123456')">Copy</button>
-    </div>
+    <label for="screenshot">Upload Payment Screenshot:</label>
+    <input type="file" id="screenshot" name="screenshot" accept="image/*" required>
 
-    <div class="payment-method tbc">
-      <img src="tbc-logo.png" alt="TBC Bank">
-      <span>IBAN: GE30TBC1234567890123456</span>
-      <button onclick="copyText('GE30TBC1234567890123456')">Copy</button>
-    </div>
+    <button type="button" onclick="submitOrder()">Submit</button>
+  </form>
 
-    <!-- Upload Section -->
-    <div class="upload-section">
-      <label for="transaction-screenshot">Payment Screenshot</label>
-      <div class="upload-box" onclick="document.getElementById('transaction-screenshot').click();">
-        Drag & Drop files here or click to browse
-        <input type="file" id="transaction-screenshot" style="display: none;" accept="image/*">
-      </div>
-    </div>
+  <!-- Firebase Libraries -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
 
-    <!-- Buy Button -->
-    <button class="buy-button">Buy</button>
-  </div>
-
+  <!-- Firebase Configuration and Submit Function -->
   <script>
-    function copyText(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert('Copied: ' + text);
-      });
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDqykzzebL74usRTv9EZ8Ynn_pbJmQVTq0",
+      authDomain: "diamond-store-hydra.firebaseapp.com",
+      projectId: "diamond-store-hydra",
+      storageBucket: "diamond-store-hydra.appspot.com",
+      messagingSenderId: "263133028845",
+      appId: "1:263133028845:web:7e84d809f3211e26dc47e4",
+      measurementId: "G-B1RVH2CCX1"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+
+    // Submit Order Function
+    async function submitOrder() {
+      const buyerID = document.getElementById('buyer-id').value;
+      const paymentMethod = document.getElementById('payment-method').value;
+      const screenshot = document.getElementById('screenshot').files[0];
+
+      if (!buyerID || !paymentMethod || !screenshot) {
+        alert('Please complete all fields!');
+        return;
+      }
+
+      try {
+        // Upload screenshot to Firebase Storage
+        const storageRef = storage.ref(`screenshots/${buyerID}_${Date.now()}`);
+        const uploadTask = await storageRef.put(screenshot);
+        const screenshotURL = await uploadTask.ref.getDownloadURL();
+
+        // Save submission to Firestore
+        await db.collection('payments').add({
+          buyerID: buyerID,
+          paymentMethod: paymentMethod,
+          screenshotURL: screenshotURL,
+          status: 'Pending',
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+
+        alert('Your order has been submitted!');
+      } catch (error) {
+        console.error('Error submitting order:', error);
+        alert('Failed to submit your order. Please try again.');
+      }
     }
   </script>
 </body>
