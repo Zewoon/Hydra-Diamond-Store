@@ -58,5 +58,5 @@ function updateSelectedItems() {
 
   // Update the total price displays without decimals
   totalPriceElement.textContent = `Total Price: ${Math.round(totalPrice)} GEL`; // In the list
-  totalPriceCircle.textContent = `${Math.round(totalPrice)}`; // In the circle
+ totalPriceCircle.innerHTML = `<span>Total</span><br>${Math.round(totalPrice)} GEL`;
 }
