@@ -5,69 +5,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment Options</title>
   <style>
+    /* Global Styles */
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 30px;
-      background-color: #f9f9f9;
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f7fa; /* Light gray background */
+      color: #333; /* Darker text color */
+      margin: 0;
+      padding: 0;
     }
+
+    /* Header */
     h1 {
-      margin-bottom: 30px;
+      background-color: #0077be; /* Professional blue header */
+      color: white;
+      padding: 20px;
+      margin: 0;
+      text-align: center;
       font-size: 2rem;
     }
+
+    /* Button Container */
     .button-container {
+      margin: 30px auto;
       display: flex;
       justify-content: center;
       gap: 20px;
     }
+
+    /* Payment Buttons */
     .pay-button {
       padding: 15px 30px;
       font-size: 1.2rem;
-      background-color: #0077be;
+      font-weight: bold;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease, opacity 0.5s;
+      transition: transform 0.2s, box-shadow 0.3s, background-color 0.3s;
     }
+
     .pay-button:hover {
-      background-color: #005fa3;
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
-    .pay-button:nth-child(2) {
-      background-color: #2b722e;
+
+    .pay-button#bog-button {
+      background-color: #005fa3; /* Bank of Georgia blue */
     }
-    .pay-button:nth-child(2):hover {
-      background-color: #215d24;
+
+    .pay-button#bog-button:hover {
+      background-color: #004d85; /* Darker blue on hover */
     }
-    .hidden {
-      display: none;
+
+    .pay-button#tbc-button {
+      background-color: #2b722e; /* TBC Bank green */
     }
+
+    .pay-button#tbc-button:hover {
+      background-color: #215d24; /* Darker green on hover */
+    }
+
+    /* Bank Details Section */
     .bank-details {
-      margin-top: 30px;
-      display: none;
+      margin: 30px auto;
+      max-width: 600px;
+      background-color: #ffffff; /* White card background */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: left;
+      display: none; /* Initially hidden */
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.5s ease-in-out;
     }
+
     .bank-details.visible {
       display: block;
       opacity: 1;
     }
-    .input-box, .file-box {
-      margin: 20px auto;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      align-items: center;
+
+    .bank-details h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: #005fa3; /* Bank of Georgia blue for consistency */
     }
-    .file-box input {
+
+    .bank-details p {
       font-size: 1rem;
+      margin: 10px 0;
+      color: #333;
     }
-    .copy-paste-buttons {
+
+    /* Input Fields and Buttons */
+    .input-box, .file-box {
+      margin: 20px 0;
       display: flex;
+      align-items: center;
       gap: 10px;
     }
-    button {
+
+    .input-box input,
+    .file-box input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .input-box button, .file-box button {
+      background-color: #0077be;
+      color: white;
+      font-size: 1rem;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .input-box button:hover, .file-box button:hover {
+      background-color: #005fa3;
     }
   </style>
 </head>
@@ -81,7 +139,7 @@
   <div class="bank-details" id="bank-details">
     <h2 id="bank-name"></h2>
     <p id="bank-info">Bank Account: <span id="account-number"></span></p>
-    <div class="copy-paste-buttons">
+    <div class="input-box">
       <button onclick="copyBankDetails()">Copy</button>
     </div>
 
@@ -92,19 +150,18 @@
     </div>
 
     <div class="file-box">
-      <label for="transaction-screenshot">Upload Transaction Screenshot:</label>
+      <label for="transaction-screenshot">Upload Screenshot:</label>
       <input type="file" id="transaction-screenshot" accept="image/*">
     </div>
   </div>
 
   <script>
     let copiedDetails = '';
-    let pastedID = '';
 
     function selectBank(bank) {
       // Hide the other button
       const otherBank = bank === 'bog' ? 'tbc' : 'bog';
-      document.getElementById(`${otherBank}-button`).classList.add('hidden');
+      document.getElementById(`${otherBank}-button`).style.display = 'none';
 
       // Show bank details for the selected bank
       const bankDetails = document.getElementById('bank-details');
