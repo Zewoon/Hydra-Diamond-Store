@@ -112,18 +112,7 @@
     <label for="buyer-id">Your ID</label>
     <input type="text" id="buyer-id" placeholder="Enter your ID" required>
 
-    <!-- Payment Methods -->
-    <label>Payment Method</label>
-    <div class="payment-method">
-      <span>Bank of Georgia</span>
-      <button class="copy-btn" onclick="copyToClipboard('BOG-Account-12345')">Copy</button>
-    </div>
-    <div class="payment-method">
-      <span>TBC Bank</span>
-      <button class="copy-btn" onclick="copyToClipboard('TBC-Account-67890')">Copy</button>
-    </div>
-
-    <!-- Upload Screenshot -->
+    <!-- Payment Screenshot -->
     <label for="screenshot">Payment Screenshot</label>
     <div class="file-upload">
       <label for="screenshot">Drag & Drop files here or click to browse</label>
@@ -134,35 +123,11 @@
     <button onclick="submitPayment()">Buy</button>
   </div>
 
-  <script>
-    // Copy account details to clipboard
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        alert("Copied: " + text);
-      }).catch((err) => {
-        console.error("Error copying text: ", err);
-      });
-    }
-
-    // Submit payment
-    function submitPayment() {
-      const buyerID = document.getElementById('buyer-id').value;
-      const screenshot = document.getElementById('screenshot').files[0];
-
-      if (!buyerID || !screenshot) {
-        alert("Please complete all fields!");
-        return;
-      }
-
-    <button type="button" onclick="submitOrder()">Submit</button>
-  </form>
-
-  <!-- Firebase Libraries -->
+  <!-- Firebase Integration -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
 
-  <!-- Firebase Configuration and Submit Function -->
   <script>
     // Firebase configuration
     const firebaseConfig = {
@@ -180,14 +145,13 @@
     const db = firebase.firestore();
     const storage = firebase.storage();
 
-    // Submit Order Function
-    async function submitOrder() {
+    // Function to handle form submission
+    async function submitPayment() {
       const buyerID = document.getElementById('buyer-id').value;
-      const paymentMethod = document.getElementById('payment-method').value;
       const screenshot = document.getElementById('screenshot').files[0];
 
-      if (!buyerID || !paymentMethod || !screenshot) {
-        alert('Please complete all fields!');
+      if (!buyerID || !screenshot) {
+        alert("Please complete all fields!");
         return;
       }
 
@@ -197,22 +161,20 @@
         const uploadTask = await storageRef.put(screenshot);
         const screenshotURL = await uploadTask.ref.getDownloadURL();
 
-        // Save submission to Firestore
+        // Save data to Firestore
         await db.collection('payments').add({
           buyerID: buyerID,
-          paymentMethod: paymentMethod,
           screenshotURL: screenshotURL,
           status: 'Pending',
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
 
-        alert('Your order has been submitted!');
+        alert('Payment submitted successfully!');
       } catch (error) {
-        console.error('Error submitting order:', error);
-        alert('Failed to submit your order. Please try again.');
+        console.error('Error submitting payment:', error);
+        alert('Failed to submit payment. Please try again.');
       }
     }
   </script>
 </body>
 </html>
-
