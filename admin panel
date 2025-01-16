@@ -1,1 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    table th {
+      background-color: #0077be;
+      color: #fff;
+    }
+    .status {
+      padding: 5px;
+      border-radius: 4px;
+      color: white;
+      text-align: center;
+    }
+    .status.pending {
+      background-color: #ffc107;
+    }
+    .status.success {
+      background-color: #28a745;
+    }
+    .status.rejected {
+      background-color: #dc3545;
+    }
+    button {
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+    .success-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    .reject-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Panel</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Buyer ID</th>
+          <th>Payment Method</th>
+          <th>Screenshot</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="submission-table"></tbody>
+    </table>
+  </div>
+
+  <!-- Firebase Libraries -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
+
+  <!-- Firebase Configuration and Admin Functionality -->
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDqykzzebL74usRTv9EZ8Ynn_pbJmQVTq0",
+      authDomain: "diamond-store-hydra.firebaseapp.com",
+      projectId: "diamond-store-hydra",
+      storageBucket: "diamond-store-hydra.appspot.com",
+      messagingSenderId: "263133028845",
+      appId: "1:263133028845:web:7e84d809f3211e26dc47e4",
+      measurementId: "G-B1RVH2CCX1"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Fetch and display submissions
+    db.collection('payments').onSnapshot((snapshot) => {
+      const table = document.getElementById('submission-table');
+      table.innerHTML = ''; // Clear existing rows
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const row = `
+          <tr>
+            <td>${data.buyerID}</td>
+            <td>${data.paymentMethod}</td>
+            <td><a href="${data.screenshotURL}" target="_blank">View</a></td>
+            <td class="status ${data.status.toLowerCase()}">${data.status}</td>
+            <td>
+              <button class="success-btn" onclick="updateStatus('${doc.id}', 'Success')">Mark as Success</button>
+              <button class="reject-btn" onclick="updateStatus('${doc.id}', 'Rejected')">Reject</button>
+            </td>
+          </tr>
+        `;
+        table.innerHTML += row;
+      });
+    });
+
+    // Update status of a submission
+    function updateStatus(id, status) {
+      db.collection('payments').doc(id).update({ status });
+      alert(`Status updated to: ${status}`);
+    }
+  </script>
+</body>
+</html>
 
