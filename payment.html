@@ -9,7 +9,7 @@
     /* Global Styles */
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #f8f9fc; /* Light background for a clean look */
+      background-color: #f8f9fc; /* Light background */
       color: #2b2d42; /* Dark gray text */
       margin: 0;
       padding: 0;
@@ -23,7 +23,7 @@
     h1 {
       margin-top: 20px;
       font-size: 2rem;
-      color: #2d6cdf; /* Modern blue for the title */
+      color: #2d6cdf; /* Modern blue */
       text-align: center;
     }
 
@@ -95,41 +95,58 @@
       color: #2b2d42;
     }
 
-    .bank-details p {
-      font-size: 1rem;
-      color: #6c757d;
-      margin: 10px 0;
-    }
-
-    .input-box, .file-box {
-      margin-top: 20px;
+    .iban-box {
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .input-box input, .file-box input {
-      flex: 1;
+      margin-top: 15px;
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 8px;
-      font-size: 1rem;
-      outline: none;
+      background-color: #f8f9fc;
     }
 
-    .input-box button, .file-box button {
-      padding: 10px 20px;
+    .iban-box span {
+      font-weight: bold;
+      color: #2b2d42;
+    }
+
+    .iban-box button {
+      padding: 8px 15px;
       background-color: #0077be;
       color: white;
       font-size: 1rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
-    .input-box button:hover, .file-box button:hover {
+    .iban-box button:hover {
+      background-color: #005fa3;
+    }
+
+    .action-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .action-box button {
+      width: 200px;
+      padding: 10px;
+      background-color: #0077be;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .action-box button:hover {
       background-color: #005fa3;
     }
   </style>
@@ -143,20 +160,15 @@
 
   <div class="bank-details" id="bank-details">
     <h2 id="bank-name"></h2>
-    <p id="bank-info">Bank Account: <span id="account-number"></span></p>
-    <div class="input-box">
+    <div class="iban-box">
+      <span id="account-number">IBAN: </span>
       <button onclick="copyBankDetails()">Copy</button>
     </div>
 
-    <div class="input-box">
-      <label for="game-id">Game ID:</label>
-      <input type="text" id="game-id" placeholder="Enter your Game ID">
+    <div class="action-box">
+      <input type="text" id="game-id" placeholder="Enter your Game ID" style="display:block;padding:10px;border:1px solid #ddd;border-radius:5px;margin-bottom:15px;">
       <button onclick="pasteID()">Paste</button>
-    </div>
-
-    <div class="file-box">
-      <label for="transaction-screenshot">Upload Screenshot:</label>
-      <input type="file" id="transaction-screenshot" accept="image/*">
+      <button style="margin-top:20px;" onclick="alert('Upload functionality coming soon!')">Upload Screenshot</button>
     </div>
   </div>
 
@@ -164,23 +176,21 @@
     let copiedDetails = '';
 
     function selectBank(bank) {
-      // Hide the other button
       const otherBank = bank === 'bog' ? 'tbc' : 'bog';
       document.getElementById(`${otherBank}-button`).style.display = 'none';
 
-      // Show bank details for the selected bank
       const bankDetails = document.getElementById('bank-details');
       const bankName = document.getElementById('bank-name');
       const accountNumber = document.getElementById('account-number');
 
       if (bank === 'bog') {
         bankName.textContent = 'Bank of Georgia';
-        accountNumber.textContent = 'GE29BOG1234567890123456'; // Example account number
-        copiedDetails = 'Bank of Georgia: GE29BOG1234567890123456';
+        accountNumber.textContent = 'GE29BOG1234567890123456'; // Example IBAN
+        copiedDetails = 'GE29BOG1234567890123456';
       } else {
         bankName.textContent = 'TBC Bank';
-        accountNumber.textContent = 'GE30TBC1234567890123456'; // Example account number
-        copiedDetails = 'TBC Bank: GE30TBC1234567890123456';
+        accountNumber.textContent = 'GE30TBC1234567890123456'; // Example IBAN
+        copiedDetails = 'GE30TBC1234567890123456';
       }
 
       bankDetails.classList.add('visible');
@@ -188,7 +198,7 @@
 
     function copyBankDetails() {
       navigator.clipboard.writeText(copiedDetails).then(() => {
-        alert('Bank details copied to clipboard!');
+        alert('IBAN copied to clipboard!');
       });
     }
 
