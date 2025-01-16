@@ -8,7 +8,7 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding: 50px;
+      padding: 30px;
       background-color: #f9f9f9;
     }
     h1 {
@@ -28,35 +28,112 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, opacity 0.5s;
     }
     .pay-button:hover {
       background-color: #005fa3;
     }
     .pay-button:nth-child(2) {
-      background-color: #2b722e; /* Different color for TBC Bank */
+      background-color: #2b722e;
     }
     .pay-button:nth-child(2):hover {
       background-color: #215d24;
+    }
+    .hidden {
+      display: none;
+    }
+    .bank-details {
+      margin-top: 30px;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .bank-details.visible {
+      display: block;
+      opacity: 1;
+    }
+    .input-box, .file-box {
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+    }
+    .file-box input {
+      font-size: 1rem;
+    }
+    .copy-paste-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <h1>Choose Your Payment Method</h1>
   <div class="button-container">
-    <button class="pay-button" onclick="payWithBOG()">Pay with Bank of Georgia</button>
-    <button class="pay-button" onclick="payWithTBC()">Pay with TBC Bank</button>
+    <button class="pay-button" id="bog-button" onclick="selectBank('bog')">Pay with Bank of Georgia</button>
+    <button class="pay-button" id="tbc-button" onclick="selectBank('tbc')">Pay with TBC Bank</button>
+  </div>
+
+  <div class="bank-details" id="bank-details">
+    <h2 id="bank-name"></h2>
+    <p id="bank-info">Bank Account: <span id="account-number"></span></p>
+    <div class="copy-paste-buttons">
+      <button onclick="copyBankDetails()">Copy</button>
+    </div>
+
+    <div class="input-box">
+      <label for="game-id">Game ID:</label>
+      <input type="text" id="game-id" placeholder="Enter your Game ID">
+      <button onclick="pasteID()">Paste</button>
+    </div>
+
+    <div class="file-box">
+      <label for="transaction-screenshot">Upload Transaction Screenshot:</label>
+      <input type="file" id="transaction-screenshot" accept="image/*">
+    </div>
   </div>
 
   <script>
-    function payWithBOG() {
-      alert('Redirecting to Bank of Georgia payment...');
-      // Add redirection logic for Bank of Georgia here
+    let copiedDetails = '';
+    let pastedID = '';
+
+    function selectBank(bank) {
+      // Hide the other button
+      const otherBank = bank === 'bog' ? 'tbc' : 'bog';
+      document.getElementById(`${otherBank}-button`).classList.add('hidden');
+
+      // Show bank details for the selected bank
+      const bankDetails = document.getElementById('bank-details');
+      const bankName = document.getElementById('bank-name');
+      const accountNumber = document.getElementById('account-number');
+
+      if (bank === 'bog') {
+        bankName.textContent = 'Bank of Georgia';
+        accountNumber.textContent = 'GE29BOG1234567890123456'; // Example account number
+        copiedDetails = 'Bank of Georgia: GE29BOG1234567890123456';
+      } else {
+        bankName.textContent = 'TBC Bank';
+        accountNumber.textContent = 'GE30TBC1234567890123456'; // Example account number
+        copiedDetails = 'TBC Bank: GE30TBC1234567890123456';
+      }
+
+      bankDetails.classList.add('visible');
     }
 
-    function payWithTBC() {
-      alert('Redirecting to TBC Bank payment...');
-      // Add redirection logic for TBC Bank here
+    function copyBankDetails() {
+      navigator.clipboard.writeText(copiedDetails).then(() => {
+        alert('Bank details copied to clipboard!');
+      });
+    }
+
+    function pasteID() {
+      navigator.clipboard.readText().then((text) => {
+        document.getElementById('game-id').value = text;
+      });
     }
   </script>
 </body>
