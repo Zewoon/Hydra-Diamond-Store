@@ -67,5 +67,5 @@ payButton.addEventListener('click', () => {
   window.location.href = './payment.html';
 });
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 
