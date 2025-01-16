@@ -68,10 +68,6 @@
       margin-bottom: 15px;
     }
 
-    .payment-method img {
-      height: 40px;
-    }
-
     .copy-btn {
       background-color: #0077be;
       color: white;
@@ -112,7 +108,18 @@
     <label for="buyer-id">Your ID</label>
     <input type="text" id="buyer-id" placeholder="Enter your ID" required>
 
-    <!-- Payment Screenshot -->
+    <!-- Payment Methods -->
+    <label>Payment Method</label>
+    <div class="payment-method">
+      <span>Bank of Georgia</span>
+      <button class="copy-btn" onclick="copyToClipboard('BOG12345')">Copy</button>
+    </div>
+    <div class="payment-method">
+      <span>TBC Bank</span>
+      <button class="copy-btn" onclick="copyToClipboard('TBC67890')">Copy</button>
+    </div>
+
+    <!-- Upload Screenshot -->
     <label for="screenshot">Payment Screenshot</label>
     <div class="file-upload">
       <label for="screenshot">Drag & Drop files here or click to browse</label>
@@ -174,6 +181,15 @@
         console.error('Error submitting payment:', error);
         alert('Failed to submit payment. Please try again.');
       }
+    }
+
+    // Copy account details to clipboard
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied: " + text);
+      }).catch((err) => {
+        console.error("Error copying text: ", err);
+      });
     }
   </script>
 </body>
