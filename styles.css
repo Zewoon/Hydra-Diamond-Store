@@ -80,33 +80,23 @@ header {
   letter-spacing: 2px;
 }
 
-/* Circular total price indicator */
 #total-price-circle {
-  position: absolute;
+  position: fixed; /* Change to fixed so it stays in place */
   top: 20px;
   right: 20px;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background-color: #28a745; /* Green background */
   color: white;
-  font-size: 1rem;
+  font-size: 1.5rem; /* Larger font size */
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-weight: bold;
   text-align: center;
-}
-
-/* Selected items section */
-#selected-items {
-  margin-top: 20px;
-}
-
-#selected-items ul {
-  list-style-type: none;
-  padding: 0;
+  z-index: 1000; /* Ensure it stays on top */
 }
 
 #selected-items li {
