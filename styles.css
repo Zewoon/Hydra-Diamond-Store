@@ -80,30 +80,6 @@ header {
   letter-spacing: 2px;
 }
 
-#total-price-circle {
-  position: fixed; /* Keeps the circle fixed on screen */
-  top: 20px;
-  right: 20px;
-  width: 80px; /* Adjust the size if needed */
-  height: 80px; /* Adjust the size if needed */
-  border-radius: 50%;
-  background-color: #28a745; /* Green background */
-  color: white; /* Text color */
-  font-size: 1rem; /* Adjust font size to make it smaller */
-  display: flex;
-  flex-direction: column; /* Stack the text vertically */
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-weight: bold;
-  text-align: center;
-  z-index: 1000; /* Keeps it on top of other elements */
-}
-
-#total-price-circle span {
-  font-size: 0.8rem; /* Smaller text for the GEL sign */
-}
-
 #selected-items li {
   background-color: #f4f4f4;
   padding: 10px;
