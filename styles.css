@@ -122,11 +122,12 @@ header {
   font-weight: bold;
 }
 
+/* Pay button styles */
 #pay-button {
   margin-top: 20px;
   padding: 10px 20px;
   font-size: 1.2rem;
-  background-color: #28a745; /* Green background for the button */
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 5px;
@@ -136,5 +137,6 @@ header {
 }
 
 #pay-button:hover {
-  background-color: #218838; /* Darker green on hover */
+  background-color: #218838;
 }
+
