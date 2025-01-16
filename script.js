@@ -4,8 +4,9 @@ let selectedItems = [];
 // Select all item boxes
 const itemBoxes = document.querySelectorAll('.item-box');
 const selectedItemsList = document.getElementById('selected-items-list');
-const totalPriceElement = document.getElementById('total-price'); // For total price in the list
-const totalPriceCircle = document.getElementById('total-price-circle'); // For circular total price display
+const totalPriceElement = document.getElementById('total-price');
+const totalPriceCircle = document.getElementById('total-price-circle');
+const payButton = document.getElementById('pay-button'); // Pay button
 
 // Handle item selection/deselection
 itemBoxes.forEach(itemBox => {
@@ -56,7 +57,15 @@ function updateSelectedItems() {
   // Calculate total price
   const totalPrice = selectedItems.reduce((sum, selected) => sum + selected.price, 0);
 
-  // Update the total price displays without decimals
+  // Update the total price displays
   totalPriceElement.textContent = `Total Price: ${Math.round(totalPrice)} GEL`; // In the list
- totalPriceCircle.innerHTML = `<span>Total</span><br>${Math.round(totalPrice)} GEL`;
+  totalPriceCircle.textContent = `${Math.round(totalPrice)}`; // In the green circle
+  payButton.textContent = `Pay (${Math.round(totalPrice)} GEL)`; // Update the button text
 }
+
+// Pay button functionality
+payButton.addEventListener('click', () => {
+  const totalPrice = selectedItems.reduce((sum, selected) => sum + selected.price, 0);
+  alert(`Your total price is ${Math.round(totalPrice)} GEL. Proceeding to payment...`);
+  // You can later replace the alert with real payment logic (e.g., payment gateway integration)
+});
