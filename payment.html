@@ -9,9 +9,11 @@
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 50px;
+      background-color: #f9f9f9;
     }
     h1 {
       margin-bottom: 30px;
+      font-size: 2rem;
     }
     .button-container {
       display: flex;
@@ -21,7 +23,7 @@
     .pay-button {
       padding: 15px 30px;
       font-size: 1.2rem;
-      background-color: #28a745;
+      background-color: #0077be;
       color: white;
       border: none;
       border-radius: 5px;
@@ -29,18 +31,33 @@
       transition: background-color 0.3s ease;
     }
     .pay-button:hover {
-      background-color: #218838;
+      background-color: #005fa3;
+    }
+    .pay-button:nth-child(2) {
+      background-color: #2b722e; /* Different color for TBC Bank */
+    }
+    .pay-button:nth-child(2):hover {
+      background-color: #215d24;
     }
   </style>
 </head>
 <body>
   <h1>Choose Your Payment Method</h1>
   <div class="button-container">
-    <button class="pay-button" onclick="payWithBankOfGeorgia()">Option 1</button>
-    <button class="pay-button" onclick="payWithTBCBank()">Option 2</button>
+    <button class="pay-button" onclick="payWithBOG()">Pay with Bank of Georgia</button>
+    <button class="pay-button" onclick="payWithTBC()">Pay with TBC Bank</button>
   </div>
 
   <script>
+    function payWithBOG() {
+      alert('Redirecting to Bank of Georgia payment...');
+      // Add redirection logic for Bank of Georgia here
+    }
 
+    function payWithTBC() {
+      alert('Redirecting to TBC Bank payment...');
+      // Add redirection logic for TBC Bank here
+    }
+  </script>
 </body>
 </html>
