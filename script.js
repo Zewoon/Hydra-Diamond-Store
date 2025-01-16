@@ -5,7 +5,6 @@ let selectedItems = [];
 const itemBoxes = document.querySelectorAll('.item-box');
 const selectedItemsList = document.getElementById('selected-items-list');
 const totalPriceElement = document.getElementById('total-price');
-const totalPriceCircle = document.getElementById('total-price-circle');
 const payButton = document.getElementById('pay-button'); // Pay button
 
 // Handle item selection/deselection
@@ -59,7 +58,6 @@ function updateSelectedItems() {
 
   // Update the total price displays
   totalPriceElement.textContent = `Total Price: ${Math.round(totalPrice)} GEL`; // In the list
-  totalPriceCircle.textContent = `${Math.round(totalPrice)}`; // In the green circle
   payButton.textContent = `Pay (${Math.round(totalPrice)} GEL)`; // Update the button text
 }
 
