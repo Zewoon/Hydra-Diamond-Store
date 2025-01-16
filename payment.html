@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Options</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .pay-button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .pay-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Choose Your Payment Method</h1>
+  <div class="button-container">
+    <button class="pay-button" onclick="payWithOption1()">Option 1</button>
+    <button class="pay-button" onclick="payWithOption2()">Option 2</button>
+  </div>
+
+  <script>
+    function payWithOption1() {
+      alert('You selected Option 1. Proceeding with Payment...');
+      // Add logic for payment option 1
+    }
+
+    function payWithOption2() {
+      alert('You selected Option 2. Proceeding with Payment...');
+      // Add logic for payment option 2
+    }
+  </script>
+</body>
+</html>
